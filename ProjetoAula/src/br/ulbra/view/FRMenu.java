@@ -40,7 +40,7 @@ public class FRMenu extends javax.swing.JFrame {
         miAjudaSobre = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu");
         setResizable(false);
 
@@ -54,7 +54,7 @@ public class FRMenu extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(180, Short.MAX_VALUE)
+                .addContainerGap(152, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(175, 175, 175))
         );
@@ -80,6 +80,11 @@ public class FRMenu extends javax.swing.JFrame {
         jMenu1.add(miCad);
 
         miCadSair.setText("Sair");
+        miCadSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadSairActionPerformed(evt);
+            }
+        });
         jMenu1.add(miCadSair);
 
         jMenuBar1.add(jMenu1);
@@ -126,6 +131,11 @@ public class FRMenu extends javax.swing.JFrame {
     private void miConUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConUsuarioActionPerformed
         new FRConusu().setVisible(true);
     }//GEN-LAST:event_miConUsuarioActionPerformed
+
+    private void miCadSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadSairActionPerformed
+         this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miCadSairActionPerformed
 
     /**
      * @param args the command line arguments
