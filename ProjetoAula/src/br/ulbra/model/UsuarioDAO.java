@@ -39,7 +39,7 @@ public class UsuarioDAO {
         return false;
     }
     
-    public void adicionarUsuario(String nome, String email, String senha, String datan, int ativo){
+    public boolean adicionarUsuario(String nome, String email, String senha, String datan, int ativo){
         String sql = "INSERT into TAUSUARIO (nomeusu, emailUsu, senhaUsu, dataNascUsu, ativoUsu)"
                 + "VALUES (?,?,?,?,?)";
         try {
@@ -51,9 +51,11 @@ public class UsuarioDAO {
             stmt.setInt(5, ativo);
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null,"Usuario:" + nome + " inserido com sucesso !");
+            return true;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERRO: " + e.getMessage());
         }
+        return false;
     }
     
     public List<Usuario> read(){
