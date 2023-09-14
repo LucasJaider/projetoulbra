@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +41,7 @@ public class UsuarioDAO {
     }
     
     public boolean adicionarUsuario(String nome, String email, String senha, String datan, int ativo){
-        String sql = "INSERT into TAUSUARIO (nomeusu, emailUsu, senhaUsu, dataNascUsu, ativoUsu)"
+        String sql = "INSERT into TBUSUARIO (nomeusu, emailUsu, senhaUsu, dataNascUsu, ativoUsu)"
                 + "VALUES (?,?,?,?,?)";
         try {
             PreparedStatement stmt = gerenciador.getConexao().prepareStatement(sql);
@@ -90,4 +91,39 @@ public class UsuarioDAO {
         return usuarios;
     }
     
+    public List<Usuario> readForDesc (String desc) {
+        String sql = "SELECT * FROM tbusuario WHERE nomeusu LIKE ?";
+        GerenciadorConexao gerenciador = GerenciadorConexao.getInstancia();
+        Connection con = gerenciador.getConexao();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Usuario> usuarios = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1,"%"+desc+"%");
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()){
+                
+                Usuario usuario = new Usuario();
+                
+                usuario.setPkUsuario(rs.getInt("pkusuario"));
+                usuario.setNomeUsu(rs.getString("nomeusu"));
+                usuario.setEmailUsu(rs.getString("emailusu"));
+                usuario.setSenhaUsu(rs.getString("senhausu"));
+                usuario.setDataNascUsu(rs.getString("datanascusu"));
+                usuario.setAtivoUsu(rs.getInt("ativousu"));
+                usuarios.add(usuario);
+                
+            }
+            
+        }catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            GerenciadorConexao.closeConnection(con, stmt, rs);
+        }
+        return usuarios;
+    }
 }
