@@ -61,7 +61,18 @@ public class Usuario {
         this.senhaUsu = senhaUsu;
     }
     
-    
-    
+    public String ativoToString(){
+        if (this.ativoUsu == 1)
+            return "Ativo";
+        else
+            return "Inativo";
+    }
+
+    public String toString(){
+        return "Usuario{" + "pkUsuario" + pkUsuario + ", nomeUsu= " + nomeUsu
+                + ", emailUsu=" + emailUsu + ", dataNascUsu=" + dataNascUsu 
+                + ", ativoUsu=" + ativoUsu + ", senhaUsu=" + senhaUsu + '}';
+                
+                }
     
 }

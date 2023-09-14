@@ -5,6 +5,8 @@
  */
 package br.ulbra.view;
 
+import br.ulbra.controller.UsuarioController;
+import br.ulbra.ulties.Ulties;
 import javax.swing.JOptionPane;
 
 
@@ -266,8 +268,17 @@ public class FRCadUsuario extends javax.swing.JFrame {
             return;
         }
         
+        UsuarioController controller = new UsuarioController();
+    String senha = new String(txtSenha.getPassword());
+    if(controller.adicionarUsuario(txtNome.getText(), txtEmail.getText(), senha,
+            txtDtnasc.getText(), Ulties.salvarBoolean(chkAtivo.isSelected()))){
+        this.dispose();
+        }
     }//GEN-LAST:event_btSalvarMouseClicked
+    
 
+
+    
     /**
      * @param args the command line arguments
      */

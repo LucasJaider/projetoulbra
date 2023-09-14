@@ -5,6 +5,10 @@
  */
 package br.ulbra.view;
 
+import br.ulbra.controller.UsuarioController;
+import br.ulbra.model.Usuario;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author aluno.saolucas
@@ -64,6 +68,11 @@ public class FRConusu extends javax.swing.JFrame {
         jLabel3.setText("FILTRO");
 
         btPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/lupa.png"))); // NOI18N
+        btPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btPesquisaMouseClicked(evt);
+            }
+        });
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -135,6 +144,24 @@ public class FRConusu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void pesquisar(){
+        DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+        modelo.setNumRows(0);
+        UsuarioController controller = new UsuarioController();
+        for(Usuario usu : controller.readFortDesc(txtFiltro.getText())){
+            Object[] linha = {usu.getPkUsuario()
+                    , usu.getNomeUsu()
+                    , usu.getClass()
+                    , usu.getDataNascUsu()
+                    , usu.ativoToString()};
+                    modelo.addRow(linha);
+        }
+    }
+    
+    private void btPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btPesquisaMouseClicked
+       pesquisar();
+    }//GEN-LAST:event_btPesquisaMouseClicked
 
     /**
      * @param args the command line arguments
