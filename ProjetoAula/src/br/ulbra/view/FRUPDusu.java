@@ -5,11 +5,24 @@
  */
 package br.ulbra.view;
 
+import br.ulbra.controller.UsuarioController;
+import br.ulbra.model.Usuario;
+import br.ulbra.ulties.Ulties;
+import java.util.HashSet;
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author aluno.saolucas
  */
 public class FRUPDusu extends javax.swing.JFrame {
+    
+    private int pkUsuario;
+    
+    public void setPkUsuario(int pk){
+        this.pkUsuario = pk;
+    }
 
     /**
      * Creates new form FRUPDusu
@@ -46,8 +59,15 @@ public class FRUPDusu extends javax.swing.JFrame {
         txtSenha = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
+        txtRsenha = new javax.swing.JPasswordField();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 0, 0));
 
@@ -83,6 +103,11 @@ public class FRUPDusu extends javax.swing.JFrame {
         btAlterar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/edite.png"))); // NOI18N
         btAlterar.setText("Alterar");
+        btAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btAlterarMouseClicked(evt);
+            }
+        });
 
         btExcluir.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/lixeira.png"))); // NOI18N
@@ -91,10 +116,21 @@ public class FRUPDusu extends javax.swing.JFrame {
         btVoltar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/return.png"))); // NOI18N
         btVoltar.setText("voltar");
+        btVoltar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btVoltarMouseClicked(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("CODIGO");
+
+        txtCodigo.setEditable(false);
+
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("SENHA");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -104,10 +140,13 @@ public class FRUPDusu extends javax.swing.JFrame {
                 .addGap(70, 70, 70)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDtnasc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
@@ -116,11 +155,11 @@ public class FRUPDusu extends javax.swing.JFrame {
                         .addGap(157, 157, 157))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRsenha, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(101, 101, 101)
@@ -133,13 +172,15 @@ public class FRUPDusu extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btVoltar))
                             .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
@@ -165,11 +206,15 @@ public class FRUPDusu extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(chkAtivo)))
-                .addGap(23, 23, 23)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtRsenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,15 +226,106 @@ public class FRUPDusu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        UsuarioController controller = new UsuarioController();
+        Usuario usu = controller.readForPk(pkUsuario);
+        
+       String codigo = String.valueOf(usu.getPkUsuario());
+       txtCodigo.setText(codigo);
+       txtNome.setText(usu.getNomeUsu());
+       txtEmail.setText(usu.getEmailUsu());
+       txtDtnasc.setText(usu.getDataNascUsu());
+       txtSenha.setText(usu.getSenhaUsu());
+       chkAtivo.setSelected(usu.getAtivoUsu() == 1);
+    }//GEN-LAST:event_formWindowActivated
+
+    private void btVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btVoltarMouseClicked
+       this.dispose();
+    }//GEN-LAST:event_btVoltarMouseClicked
+
+    private boolean verificarCampos(){
+        // validação do nome
+      if(txtNome.getText().equals("")){
+        JOptionPane.showMessageDialog(null,"Campo 'nome' em branco ");
+        return false;
+    } 
+      if(!txtNome.getText().matches("^[\\p{L} ]+$")){
+        JOptionPane.showMessageDialog(null,"Campo 'nome' chacacteres invalidos ");
+        return false;
+    }
+     
+      //validação do email
+    if(txtEmail.getText().equals("")){
+        JOptionPane.showMessageDialog(null,"Campo 'Email' em branco ");
+        return false;
+    } 
+      if(!txtEmail.getText().matches("^[a-zA-Z._]+@[a-zA-Z._]+.[a-zA-Z._]+$")){
+        JOptionPane.showMessageDialog(null,"Campo 'Email' com formato invalidos ");
+        return false;
+    }
+      
+      //validação da data de nascimento
+      if(!txtDtnasc.getText().matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}+$")){
+        JOptionPane.showMessageDialog(null,"Campo 'Data Nascimento' possui formato invalido "
+                + " Ex: 0/01/2000 ");
+        return false;
+    }
+      
+      // validação da senha
+      char[] senha = txtSenha.getPassword();
+      if(new String(senha).length() < 8){
+          JOptionPane.showMessageDialog(null,
+                  "Campo 'senha' deve ser maior que 8 chacacteres");
+          return false;
+      }
+      
+      if(senha.equals(new String(txtRsenha.getPassword()))){
+          JOptionPane.showMessageDialog(null,
+                  "As senhas não são iguais");
+          return false;
+      }
+   
+    
+      return true;
+    }
+    
+    
+    
+    private void btAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAlterarMouseClicked
+       if(!verificarCampos()){
+            return;
+        }
+        
+        UsuarioController controller = new UsuarioController();
+    String senha = new String(txtSenha.getPassword());
+    Usuario usuario = new Usuario();
+    usuario.setPkUsuario(pkUsuario);
+    usuario.setNomeUsu(txtNome.getText());
+    usuario.setEmailUsu(txtEmail.getText());
+    usuario.setDataNascUsu(txtDtnasc.getText());
+    usuario.setAtivoUsu(Ulties.salvarBoolean(chkAtivo.isSelected()));
+    usuario.setSenhaUsu(senha);
+        
+    if(controller.alterarUsuario(usuario)){
+        this.dispose();
+        }
+        
+        
+    }//GEN-LAST:event_btAlterarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -239,11 +375,13 @@ public class FRUPDusu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDtnasc;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JPasswordField txtRsenha;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
