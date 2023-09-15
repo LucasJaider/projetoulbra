@@ -7,6 +7,7 @@ package br.ulbra.view;
 
 import br.ulbra.controller.UsuarioController;
 import br.ulbra.model.Usuario;
+import java.awt.event.KeyEvent;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -67,6 +68,12 @@ public class FRConusu extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("FILTRO");
 
+        txtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFiltroKeyPressed(evt);
+            }
+        });
+
         btPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/ulbra/img/lupa.png"))); // NOI18N
         btPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -85,6 +92,11 @@ public class FRConusu extends javax.swing.JFrame {
                 "Cod", "Nome", "Email", "Dt.nasc", "Ativo"
             }
         ));
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -103,15 +115,17 @@ public class FRConusu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(txtFiltro))
+                        .addComponent(jLabel2)
+                        .addContainerGap(173, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtFiltro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btPesquisa)
-                        .addGap(105, 105, 105))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap(173, Short.MAX_VALUE))))
+                        .addGap(105, 105, 105))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(105, 105, 105))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,10 +163,10 @@ public class FRConusu extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) table.getModel();
         modelo.setNumRows(0);
         UsuarioController controller = new UsuarioController();
-        for(Usuario usu : controller.readFortDesc(txtFiltro.getText())){
+        for(Usuario usu : controller.readForDesc(txtFiltro.getText())){
             Object[] linha = {usu.getPkUsuario()
                     , usu.getNomeUsu()
-                    , usu.getClass()
+                    , usu.getEmailUsu()
                     , usu.getDataNascUsu()
                     , usu.ativoToString()};
                     modelo.addRow(linha);
@@ -163,6 +177,23 @@ public class FRConusu extends javax.swing.JFrame {
        pesquisar();
     }//GEN-LAST:event_btPesquisaMouseClicked
 
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+       if (table.getSelectedRow() != -1){
+           int pk = Integer.parseInt(
+                   table.getValueAt(table.getSelectedRow(), 0).toString()
+           );
+           FRUPDusu telaUPD = new FRUPDusu();
+           telaUPD.setPkUsuario(pk);
+           telaUPD.setVisible(true);
+       }
+        
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void txtFiltroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyPressed
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+         pesquisar();
+    }//GEN-LAST:event_txtFiltroKeyPressed
+    }
     /**
      * @param args the command line arguments
      */
