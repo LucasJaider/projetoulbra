@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 
@@ -40,7 +41,7 @@ public class UsuarioDAO {
         return false;
     }
     
-    public boolean adicionarUsuario(String nome, String email, String senha, String datan, int ativo){
+    public boolean adicionarUsuario(String nome, String email, String senha, String datan, int ativo, Icon icone){
         String sql = "INSERT into TBUSUARIO (nomeusu, emailUsu, senhaUsu, dataNascUsu, ativoUsu)"
                 + "VALUES (?,?,?,?,?)";
         try {
