@@ -7,7 +7,11 @@ package br.ulbra.controller;
 
 import br.ulbra.model.Usuario;
 import br.ulbra.model.UsuarioDAO;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,8 +34,18 @@ public class UsuarioController {
      }
      
      
-     public boolean adicionarUsuario(String nome, String email, String senha, String datan, int ativo){
-         return usuarioDAO.adicionarUsuario(nome, email, senha, datan, ativo);
+     public boolean adicionarUsuario(String nome, String email,
+             String senha, String datan, int ativo, Icon icone){
+         try {
+         
+         return usuarioDAO.adicionarUsuario(
+                 nome, email, senha, datan, ativo, icone);
+         } catch (IOException ex){
+             Logger.getLogger(
+                     UsuarioController.class.getName())
+                     .log(Level.SEVERE, null, ex);
+         }
+         return false;
      }
     
      public List <Usuario> readForDesc(String desc){
