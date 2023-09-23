@@ -6,6 +6,7 @@
 package br.ulbra.view;
 
 import br.ulbra.controller.UsuarioController;
+import br.ulbra.model.Usuario;
 import br.ulbra.ulties.Ulties;
 import java.io.File;
 import javax.swing.Icon;
@@ -48,7 +49,7 @@ public class FRCadUsuario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        txtDtnasc = new javax.swing.JTextField();
+        txtDtNasc = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         btSalvar = new javax.swing.JButton();
@@ -155,7 +156,7 @@ public class FRCadUsuario extends javax.swing.JFrame {
                                 .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtDtnasc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                                .addComponent(txtDtNasc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
@@ -202,7 +203,7 @@ public class FRCadUsuario extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDtnasc, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -308,9 +309,15 @@ public class FRCadUsuario extends javax.swing.JFrame {
         
         UsuarioController controller = new UsuarioController();
     String senha = new String(txtSenha.getPassword());
-    if(controller.adicionarUsuario(txtNome.getText(), txtEmail.getText(), senha,
-            txtDtnasc.getText(), Ulties.salvarBoolean(chkAtivo.isSelected())
-            ,lbFoto.getIcon())){
+    
+    Usuario usu = new Usuario();
+    usu.setNomeUsu(txtNome.getText());
+    usu.setEmailUsu(txtEmail.getText());
+    usu.setDataNascUsu(txtDtNasc.getText());
+    usu.setSenhaUsu(senha);
+    usu.setAtivoUsu(Ulties.salvarBoolean(chAtivo));
+        
+    
         this.dispose();
         }
     }//GEN-LAST:event_btSalvarMouseClicked
@@ -387,7 +394,7 @@ public class FRCadUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JLabel lbFoto;
-    private javax.swing.JTextField txtDtnasc;
+    private javax.swing.JTextField txtDtNasc;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
     private javax.swing.JPasswordField txtRsenha;

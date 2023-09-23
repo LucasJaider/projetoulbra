@@ -1,5 +1,7 @@
 package br.ulbra.model;
 
+import javax.swing.Icon;
+
 /**
  *
  * @author aluno.saolucas
@@ -12,6 +14,7 @@ public class Usuario {
     private String dataNascUsu;
     private int ativoUsu;
     private String senhaUsu;
+    private Icon imagenUsu;
 
     public int getPkUsuario() {
         return pkUsuario;
@@ -59,6 +62,14 @@ public class Usuario {
 
     public void setSenhaUsu(String senhaUsu) {
         this.senhaUsu = senhaUsu;
+    }
+    
+    public Icon getImagemUsu(){
+        return this.imagenUsu;
+    }
+    
+    public void setImagemUsu(Icon imagem){
+        this.imagenUsu = imagem;
     }
     
     public String ativoToString(){

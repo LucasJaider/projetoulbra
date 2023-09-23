@@ -154,14 +154,15 @@
               <Font name="Arial" size="18" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="7">
+              <StringArray count="8">
                 <StringItem index="0" value="AREA AZUL"/>
                 <StringItem index="1" value="IDOSO"/>
                 <StringItem index="2" value="DEFICIENTE"/>
                 <StringItem index="3" value="CARGA E DESCARGA"/>
                 <StringItem index="4" value="VAGA R&#xc1;PIDA"/>
                 <StringItem index="5" value="VE&#xcd;CULO OFICIAL"/>
-                <StringItem index="6" value=" "/>
+                <StringItem index="6" value="MOTO"/>
+                <StringItem index="7" value=" "/>
               </StringArray>
             </Property>
           </Properties>

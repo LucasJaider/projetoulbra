@@ -2,6 +2,12 @@ package br.ulbra.model;
 
 
 
+import br.ulbra.ulties.Ulties;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +17,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
@@ -41,20 +49,28 @@ public class UsuarioDAO {
         return false;
     }
     
-    public boolean adicionarUsuario(String nome, String email, String senha, String datan, int ativo, Icon icone){
-        String sql = "INSERT into TBUSUARIO (nomeusu, emailUsu, senhaUsu, dataNascUsu, ativoUsu)"
-                + "VALUES (?,?,?,?,?)";
+    
+    
+    
+    public boolean adicionarUsuario(Usuario u){
+        String sql = "INSERT into TBUSUARIO (nomeusu, emailUsu, senhaUsu, dataNascUsu, ativoUsu, imagemUsu)"
+                + "VALUES (?,?,?,?,?, ?)";
         try {
+            byte[] iconBytes = Ulties.iconToBytes(u.getImagemUsu());
+            
             PreparedStatement stmt = gerenciador.getConexao().prepareStatement(sql);
-            stmt.setString(1, nome);
-            stmt.setString(2, email);
-            stmt.setString(3, senha);
-            stmt.setString(4, datan);
-            stmt.setInt(5, ativo);
+            stmt.setString(1, u.getNomeUsu());
+            stmt.setString(2, u.getEmailUsu());
+            stmt.setString(3, u.getSenhaUsu());
+            stmt.setString(4, u.getDataNascUsu());
+            stmt.setInt(5, u.getAtivoUsu());
+            stmt.setBytes(6, iconBytes);
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null,"Usuario:" + nome + " inserido com sucesso !");
+            JOptionPane.showMessageDialog(null,"Usuario:" + u + " inserido com sucesso !");
             return true;
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERRO: " + e.getMessage());
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "ERRO: " + e.getMessage());
         }
         return false;
@@ -152,11 +168,19 @@ public class UsuarioDAO {
                 usuario.setDataNascUsu(rs.getString("datanascusu"));
                 usuario.setAtivoUsu(rs.getInt("ativousu"));
                 
+                byte[] bytes = rs.getBytes("imagemUsu");
+                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                BufferedImage imagem = ImageIO.read(bis);
+                
+                usuario.setImagemUsu(new ImageIcon(imagem));
+                
                 
             }
             
         }catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+           JOptionPane.showMessageDialog(null, "ERRO: " + e.getMessage());
         }finally {
             GerenciadorConexao.closeConnection(con, stmt, rs);
         }
@@ -169,16 +193,18 @@ public class UsuarioDAO {
             PreparedStatement stmt = null;
             
             try{
+                byte[] iconBytes = Ulties.iconToBytes(u.getImagemUsu());
                 stmt = con.prepareStatement("UPDATE tbusuario SET nomeusu = ?,)"
                         + " emailusu =?, senhausu = ?, datanascusu = ?,"
-                        + " ativousu = ? WHERE pkusuario = ?");
+                        + " ativousu = ?, imagemUsu = ? WHERE pkusuario = ?");
                 
                 stmt.setString(1, u.getNomeUsu());
                 stmt.setString(2, u.getEmailUsu());
                 stmt.setString(3, u.getSenhaUsu());
                 stmt.setString(4, u.getDataNascUsu());
                 stmt.setInt(5, u.getAtivoUsu());
-                stmt.setInt(6, u.getPkUsuario());
+                stmt.setBytes(6, iconBytes);
+                stmt.setInt(7, u.getPkUsuario());
                         
                 stmt.executeUpdate();
                 
@@ -187,7 +213,9 @@ public class UsuarioDAO {
                 
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
-            } finally {
+            }  catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "ERRO: " + e.getMessage());
+            }finally {
                 GerenciadorConexao.closeConnection(con, stmt);
             }
             return false;

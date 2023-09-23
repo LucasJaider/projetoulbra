@@ -63,7 +63,7 @@ public class FRFiscalizar extends javax.swing.JFrame {
         jLabel2.setText("Vaga");
 
         jComboBox2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AREA AZUL", "IDOSO", "DEFICIENTE", "CARGA E DESCARGA", "VAGA RÁPIDA", "VEÍCULO OFICIAL", " " }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AREA AZUL", "IDOSO", "DEFICIENTE", "CARGA E DESCARGA", "VAGA RÁPIDA", "VEÍCULO OFICIAL", "MOTO", " " }));
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
 

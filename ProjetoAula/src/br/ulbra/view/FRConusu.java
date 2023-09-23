@@ -184,6 +184,7 @@ public class FRConusu extends javax.swing.JFrame {
            );
            FRUPDusu telaUPD = new FRUPDusu();
            telaUPD.setPkUsuario(pk);
+           telaUPD.carregarUsuario();
            telaUPD.setVisible(true);
        }
         
