@@ -5,6 +5,11 @@
  */
 package br.ulbra.view;
 
+import br.ulbra.controller.UsuarioController;
+import br.ulbra.model.Rotativo;
+import br.ulbra.ulties.Ulties;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author teste
@@ -16,6 +21,7 @@ public class FRFiscalizar extends javax.swing.JFrame {
      */
     public FRFiscalizar() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -31,7 +37,7 @@ public class FRFiscalizar extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbVaga = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -42,14 +48,15 @@ public class FRFiscalizar extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        txtPais = new javax.swing.JTextField();
         txtLocal = new javax.swing.JTextField();
         txtVaga = new javax.swing.JTextField();
         txtPlaca = new javax.swing.JTextField();
         txtNumero = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btVoltar = new javax.swing.JButton();
+        btGravarF = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
+        cbPais = new javax.swing.JComboBox<>();
+        chkRegular = new javax.swing.JCheckBox();
 
         jLabel1.setText("jLabel1");
 
@@ -62,8 +69,8 @@ public class FRFiscalizar extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Vaga");
 
-        jComboBox2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AREA AZUL", "IDOSO", "DEFICIENTE", "CARGA E DESCARGA", "VAGA RÁPIDA", "VEÍCULO OFICIAL", "MOTO", " " }));
+        cbVaga.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        cbVaga.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AREA AZUL", "IDOSO", "DEFICIENTE", "CARGA E DESCARGA", "VAGA RÁPIDA", "VEÍCULO OFICIAL", "MOTO", " " }));
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -181,11 +188,23 @@ public class FRFiscalizar extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jButton1.setText("voltar");
+        btVoltar.setBackground(new java.awt.Color(51, 51, 255));
+        btVoltar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        btVoltar.setText("voltar");
+        btVoltar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btVoltar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btVoltarMouseClicked(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jButton2.setText("gravar");
+        btGravarF.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        btGravarF.setText("gravar");
+        btGravarF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btGravarFMouseClicked(evt);
+            }
+        });
 
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -200,18 +219,33 @@ public class FRFiscalizar extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        cbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brasil", "Argentina" }));
+
+        chkRegular.setBackground(new java.awt.Color(255, 255, 255));
+        chkRegular.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        chkRegular.setText("Regular");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btGravarF, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cbVaga, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -219,21 +253,17 @@ public class FRFiscalizar extends javax.swing.JFrame {
                             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPais)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPlaca)
                             .addComponent(txtVaga)
                             .addComponent(txtLocal)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                            .addComponent(txtNumero)
+                            .addComponent(cbPais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(55, 55, 55))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(chkRegular, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(195, 195, 195))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +271,7 @@ public class FRFiscalizar extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPais))
+                    .addComponent(cbPais))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -260,14 +290,16 @@ public class FRFiscalizar extends javax.swing.JFrame {
                     .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbVaga, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(chkRegular, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                        .addComponent(btVoltar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                         .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btGravarF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -288,6 +320,65 @@ public class FRFiscalizar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLocalActionPerformed
 
+    private void btVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btVoltarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btVoltarMouseClicked
+
+    private void btGravarFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btGravarFMouseClicked
+       if (!verificar()) {
+            return;
+        }
+       
+        UsuarioController controller = new UsuarioController();
+        
+
+        Rotativo car = new Rotativo();
+        car.setPlaca(txtPlaca.getText());
+        car.setNumero(txtNumero.getText());
+        car.setLocal(txtLocal.getText());
+        car.setPais(cbPais.getSelectedIndex());
+        car.setVaga(cbVaga.getSelectedIndex());
+        car.setRegular(Ulties.salvarBoolean(chkRegular.isSelected()));
+
+        this.dispose();
+       
+    }//GEN-LAST:event_btGravarFMouseClicked
+
+    private boolean verificar(){
+        if (txtPlaca.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo 'Placa' não é valido ");
+            return false;
+        }
+        
+        if (!txtPlaca.getText().matches("^[\\p{L} ]+$")) {
+            JOptionPane.showMessageDialog(null, "Campo 'Placa' chacacteres invalidos ");
+            return false;
+        }
+        if((txtPlaca.getText().length() != 7 && cbPais.getSelectedIndex() == 0 ) || (txtPlaca.getText().length() != 6 && cbPais.getSelectedIndex() == 1 )){
+            JOptionPane.showMessageDialog(null, "Compo 'Placa' com numero de characteres invalidos");
+            return false;
+        }
+        
+        if (txtLocal.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo 'Local' não pode ficar em branco ");
+            return false;
+        }
+        if (!txtLocal.getText().matches("^[\\p{L} ]+$")) {
+            JOptionPane.showMessageDialog(null, "Campo 'Local' com chacacteres invalidos ");
+            return false;
+        }
+        
+        if (!txtNumero.getText().matches("^[0-9]+$")) {
+            JOptionPane.showMessageDialog(null, "Campo 'Numero' com formato invalido ");
+            return false;
+        }
+        
+        
+        return true;
+    }
+            
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -324,10 +415,12 @@ public class FRFiscalizar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btGravarF;
+    private javax.swing.JButton btVoltar;
+    private javax.swing.JComboBox<String> cbPais;
+    private javax.swing.JComboBox<String> cbVaga;
+    private javax.swing.JCheckBox chkRegular;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -344,7 +437,6 @@ public class FRFiscalizar extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JTextField txtLocal;
     private javax.swing.JTextField txtNumero;
-    private javax.swing.JTextField txtPais;
     private javax.swing.JTextField txtPlaca;
     private javax.swing.JTextField txtVaga;
     // End of variables declaration//GEN-END:variables

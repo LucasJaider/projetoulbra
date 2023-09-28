@@ -15,8 +15,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.jcp.xml.dsig.internal.dom.Utils;
 
-
-
 /**
  *
  * @author aluno.saolucas
@@ -246,80 +244,76 @@ public class FRCadUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btSalvar2ActionPerformed
 
     private void btSalvar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSalvar2MouseClicked
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btSalvar2MouseClicked
 
-    
-    private boolean verificarCampos(){
+    private boolean verificarCampos() {
         // validação do nome
-        if(lbFoto.getIcon() == null){
-            JOptionPane.showMessageDialog(null,"Campo 'Foto' em branco");
+        if (lbFoto.getIcon() == null) {
+            JOptionPane.showMessageDialog(null, "Campo 'Foto' em branco");
             return false;
         }
-        
-        
-      if(txtNome.getText().equals("")){
-        JOptionPane.showMessageDialog(null,"Campo 'nome' em branco ");
-        return false;
-    } 
-      if(!txtNome.getText().matches("^[\\p{L} ]+$")){
-        JOptionPane.showMessageDialog(null,"Campo 'nome' chacacteres invalidos ");
-        return false;
+
+        if (txtNome.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo 'nome' em branco ");
+            return false;
+        }
+        if (!txtNome.getText().matches("^[\\p{L} ]+$")) {
+            JOptionPane.showMessageDialog(null, "Campo 'nome' chacacteres invalidos ");
+            return false;
+        }
+
+        //validação do email
+        if (txtEmail.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo 'Email' em branco ");
+            return false;
+        }
+        if (!txtEmail.getText().matches("^[a-zA-Z._]+@[a-zA-Z._]+.[a-zA-Z._]+$")) {
+            JOptionPane.showMessageDialog(null, "Campo 'Email' com formato invalidos ");
+            return false;
+        }
+
+        //validação da data de nascimento
+        if (!txtDtNasc.getText().matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}+$")) {
+            JOptionPane.showMessageDialog(null, "Campo 'Data Nascimento' possui formato invalido "
+                    + " Ex: 0/01/2000 ");
+            return false;
+        }
+
+        // validação da senha
+        char[] senha = txtSenha.getPassword();
+        if (new String(senha).length() < 8) {
+            JOptionPane.showMessageDialog(null,
+                    "Campo 'senha' deve ser maior que 8 chacacteres");
+            return false;
+        }
+
+        if (senha.equals(new String(txtRsenha.getPassword()))) {
+            JOptionPane.showMessageDialog(null,
+                    "As senhas não são iguais");
+            return false;
+        }
+
+        return true;
     }
-     
-      //validação do email
-    if(txtEmail.getText().equals("")){
-        JOptionPane.showMessageDialog(null,"Campo 'Email' em branco ");
-        return false;
-    } 
-      if(!txtEmail.getText().matches("^[a-zA-Z._]+@[a-zA-Z._]+.[a-zA-Z._]+$")){
-        JOptionPane.showMessageDialog(null,"Campo 'Email' com formato invalidos ");
-        return false;
-    }
-      
-      //validação da data de nascimento
-      if(!txtDtnasc.getText().matches("^[0-9]{2}/[0-9]{2}/[0-9]{4}+$")){
-        JOptionPane.showMessageDialog(null,"Campo 'Data Nascimento' possui formato invalido "
-                + " Ex: 0/01/2000 ");
-        return false;
-    }
-      
-      // validação da senha
-      char[] senha = txtSenha.getPassword();
-      if(new String(senha).length() < 8){
-          JOptionPane.showMessageDialog(null,
-                  "Campo 'senha' deve ser maior que 8 chacacteres");
-          return false;
-      }
-      
-      if(senha.equals(new String(txtRsenha.getPassword()))){
-          JOptionPane.showMessageDialog(null,
-                  "As senhas não são iguais");
-          return false;
-      }
-   
-    
-      return true;
-    }
-    
+
     private void btSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSalvarMouseClicked
-        if(!verificarCampos()){
+        if (!verificarCampos()) {
             return;
         }
-        
+
         UsuarioController controller = new UsuarioController();
-    String senha = new String(txtSenha.getPassword());
-    
-    Usuario usu = new Usuario();
-    usu.setNomeUsu(txtNome.getText());
-    usu.setEmailUsu(txtEmail.getText());
-    usu.setDataNascUsu(txtDtNasc.getText());
-    usu.setSenhaUsu(senha);
-    usu.setAtivoUsu(Ulties.salvarBoolean(chAtivo));
-        
-    
+        String senha = new String(txtSenha.getPassword());
+
+        Usuario usu = new Usuario();
+        usu.setNome(txtNome.getText());
+        usu.setEmail(txtEmail.getText());
+        usu.setDataNasc(txtDtNasc.getText());
+        usu.setSenha(senha);
+        usu.setAtivo(Ulties.salvarBoolean(chkAtivo.isSelected()));
+
         this.dispose();
-        }
+    
     }//GEN-LAST:event_btSalvarMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -337,6 +331,7 @@ public class FRCadUsuario extends javax.swing.JFrame {
          
          lbFoto.setIcon(iconRedimensionado);
      }
+     
     }//GEN-LAST:event_jButton1MouseClicked
     
     
@@ -357,16 +352,28 @@ public class FRCadUsuario extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRCadUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FRCadUsuario.class
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FRCadUsuario.class
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FRCadUsuario.class
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FRCadUsuario.class
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

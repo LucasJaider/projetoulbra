@@ -18,10 +18,10 @@ import javax.swing.JOptionPane;
  */
 public class FRUPDusu extends javax.swing.JFrame {
     
-    private int pkUsuario;
+    private int pk;
     
-    public void setPkUsuario(int pk){
-        this.pkUsuario = pk;
+    public void setPk(int pk){
+        this.pk = pk;
     }
 
     /**
@@ -255,15 +255,15 @@ public class FRUPDusu extends javax.swing.JFrame {
 
     public void carregarUsuario(){
         UsuarioController controller = new UsuarioController();
-        Usuario usu = controller.readForPk(pkUsuario);
+        Usuario usu = controller.readForPk(pk);
         
-       String codigo = String.valueOf(usu.getPkUsuario());
+       String codigo = String.valueOf(usu.getPk());
        txtCodigo.setText(codigo);
-       txtNome.setText(usu.getNomeUsu());
-       txtEmail.setText(usu.getEmailUsu());
-       txtDtnasc.setText(usu.getDataNascUsu());
-       txtSenha.setText(usu.getSenhaUsu());
-       chkAtivo.setSelected(usu.getAtivoUsu() == 1);
+       txtNome.setText(usu.getNome());
+       txtEmail.setText(usu.getEmail());
+       txtDtnasc.setText(usu.getDataNasc());
+       txtSenha.setText(usu.getSenha());
+       chkAtivo.setSelected(usu.getAtivo() == 1);
     }
     
     
@@ -332,13 +332,13 @@ public class FRUPDusu extends javax.swing.JFrame {
         UsuarioController controller = new UsuarioController();
     String senha = new String(txtSenha.getPassword());
     Usuario usuario = new Usuario();
-    usuario.setPkUsuario(pkUsuario);
-    usuario.setNomeUsu(txtNome.getText());
-    usuario.setEmailUsu(txtEmail.getText());
-    usuario.setDataNascUsu(txtDtnasc.getText());
-    usuario.setAtivoUsu(Ulties.salvarBoolean(chkAtivo.isSelected()));
-    usuario.setSenhaUsu(senha);
-    usuario.setImagemUsu(lbFoto.getIcon());
+    usuario.setPk(pk);
+    usuario.setNome(txtNome.getText());
+    usuario.setEmail(txtEmail.getText());
+    usuario.setDataNasc(txtDtnasc.getText());
+    usuario.setAtivo(Ulties.salvarBoolean(chkAtivo.isSelected()));
+    usuario.setSenha(senha);
+    usuario.setImagem(lbFoto.getIcon());
         
     if(controller.alterarUsuario(usuario)){
         this.dispose();

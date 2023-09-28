@@ -56,14 +56,14 @@ public class UsuarioDAO {
         String sql = "INSERT into TBUSUARIO (nomeusu, emailUsu, senhaUsu, dataNascUsu, ativoUsu, imagemUsu)"
                 + "VALUES (?,?,?,?,?, ?)";
         try {
-            byte[] iconBytes = Ulties.iconToBytes(u.getImagemUsu());
+            byte[] iconBytes = Ulties.iconToBytes(u.getImagem());
             
             PreparedStatement stmt = gerenciador.getConexao().prepareStatement(sql);
-            stmt.setString(1, u.getNomeUsu());
-            stmt.setString(2, u.getEmailUsu());
-            stmt.setString(3, u.getSenhaUsu());
-            stmt.setString(4, u.getDataNascUsu());
-            stmt.setInt(5, u.getAtivoUsu());
+            stmt.setString(1, u.getNome());
+            stmt.setString(2, u.getEmail());
+            stmt.setString(3, u.getSenha());
+            stmt.setString(4, u.getDataNasc());
+            stmt.setInt(5, u.getAtivo());
             stmt.setBytes(6, iconBytes);
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null,"Usuario:" + u + " inserido com sucesso !");
@@ -90,12 +90,12 @@ public class UsuarioDAO {
             while (rs.next()){
                 Usuario usuario = new Usuario();
                 
-                usuario.setPkUsuario(rs.getInt("pkusuario"));
-                usuario.setNomeUsu(rs.getString("nmeusu"));
-                usuario.setEmailUsu(rs.getString("emailusu"));
-                usuario.setSenhaUsu(rs.getString("senhausu"));
-                usuario.setDataNascUsu(rs.getString("datanascusu"));
-                usuario.setAtivoUsu(rs.getInt("ativousu"));
+                usuario.setPk(rs.getInt("pkusuario"));
+                usuario.setNome(rs.getString("nmeusu"));
+                usuario.setEmail(rs.getString("emailusu"));
+                usuario.setSenha(rs.getString("senhausu"));
+                usuario.setDataNasc(rs.getString("datanascusu"));
+                usuario.setAtivo(rs.getInt("ativousu"));
                 
                 usuarios.add(usuario);
             }
@@ -126,12 +126,12 @@ public class UsuarioDAO {
                 
                 Usuario usuario = new Usuario();
                 
-                usuario.setPkUsuario(rs.getInt("pkusuario"));
-                usuario.setNomeUsu(rs.getString("nomeusu"));
-                usuario.setEmailUsu(rs.getString("emailusu"));
-                usuario.setSenhaUsu(rs.getString("senhausu"));
-                usuario.setDataNascUsu(rs.getString("datanascusu"));
-                usuario.setAtivoUsu(rs.getInt("ativousu"));
+                usuario.setPk(rs.getInt("pkusuario"));
+                usuario.setNome(rs.getString("nomeusu"));
+                usuario.setEmail(rs.getString("emailusu"));
+                usuario.setSenha(rs.getString("senhausu"));
+                usuario.setDataNasc(rs.getString("datanascusu"));
+                usuario.setAtivo(rs.getInt("ativousu"));
                 usuarios.add(usuario);
                 
             }
@@ -161,18 +161,18 @@ public class UsuarioDAO {
             
             while (rs.next()){
                 
-                usuario.setPkUsuario(rs.getInt("pkusuario"));
-                usuario.setNomeUsu(rs.getString("nomeusu"));
-                usuario.setEmailUsu(rs.getString("emailusu"));
-                usuario.setSenhaUsu(rs.getString("senhausu"));
-                usuario.setDataNascUsu(rs.getString("datanascusu"));
-                usuario.setAtivoUsu(rs.getInt("ativousu"));
+                usuario.setPk(rs.getInt("pkusuario"));
+                usuario.setNome(rs.getString("nomeusu"));
+                usuario.setEmail(rs.getString("emailusu"));
+                usuario.setSenha(rs.getString("senhausu"));
+                usuario.setDataNasc(rs.getString("datanascusu"));
+                usuario.setAtivo(rs.getInt("ativousu"));
                 
                 byte[] bytes = rs.getBytes("imagemUsu");
                 ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
                 BufferedImage imagem = ImageIO.read(bis);
                 
-                usuario.setImagemUsu(new ImageIcon(imagem));
+                usuario.setImagem(new ImageIcon(imagem));
                 
                 
             }
@@ -193,18 +193,18 @@ public class UsuarioDAO {
             PreparedStatement stmt = null;
             
             try{
-                byte[] iconBytes = Ulties.iconToBytes(u.getImagemUsu());
+                byte[] iconBytes = Ulties.iconToBytes(u.getImagem());
                 stmt = con.prepareStatement("UPDATE tbusuario SET nomeusu = ?,)"
                         + " emailusu =?, senhausu = ?, datanascusu = ?,"
                         + " ativousu = ?, imagemUsu = ? WHERE pkusuario = ?");
                 
-                stmt.setString(1, u.getNomeUsu());
-                stmt.setString(2, u.getEmailUsu());
-                stmt.setString(3, u.getSenhaUsu());
-                stmt.setString(4, u.getDataNascUsu());
-                stmt.setInt(5, u.getAtivoUsu());
+                stmt.setString(1, u.getNome());
+                stmt.setString(2, u.getEmail());
+                stmt.setString(3, u.getSenha());
+                stmt.setString(4, u.getDataNasc());
+                stmt.setInt(5, u.getAtivo());
                 stmt.setBytes(6, iconBytes);
-                stmt.setInt(7, u.getPkUsuario());
+                stmt.setInt(7, u.getPk());
                         
                 stmt.executeUpdate();
                 

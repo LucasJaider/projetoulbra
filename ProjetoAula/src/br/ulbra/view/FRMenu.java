@@ -76,7 +76,17 @@ public class FRMenu extends javax.swing.JFrame {
         });
         jMenu1.add(miCadUsuario);
 
-        miCad.setText("???");
+        miCad.setText("rotativo");
+        miCad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                miCadMouseClicked(evt);
+            }
+        });
+        miCad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadActionPerformed(evt);
+            }
+        });
         jMenu1.add(miCad);
 
         miCadSair.setText("Sair");
@@ -136,6 +146,14 @@ public class FRMenu extends javax.swing.JFrame {
          this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_miCadSairActionPerformed
+
+    private void miCadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_miCadMouseClicked
+
+    }//GEN-LAST:event_miCadMouseClicked
+
+    private void miCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadActionPerformed
+          new FRSetor().setVisible(true);
+    }//GEN-LAST:event_miCadActionPerformed
 
     /**
      * @param args the command line arguments
