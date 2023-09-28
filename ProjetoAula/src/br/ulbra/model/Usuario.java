@@ -6,83 +6,37 @@ import javax.swing.Icon;
  *
  * @author aluno.saolucas
  */
-public class Usuario {
+public class Usuario extends Pessoa{
+    private String dataNasc;
+    private String senha;
+   
+
     
-    private int pkUsuario;
-    private String nomeUsu;
-    private String emailUsu;
-    private String dataNascUsu;
-    private int ativoUsu;
-    private String senhaUsu;
-    private Icon imagenUsu;
 
-    public int getPkUsuario() {
-        return pkUsuario;
+    public String getDataNasc() {
+        return dataNasc;
     }
 
-    public void setPkUsuario(int pkUsuario) {
-        this.pkUsuario = pkUsuario;
+    public void setDataNasc(String dataNasc) {
+        this.dataNasc = dataNasc;
     }
 
-    public String getNomeUsu() {
-        return nomeUsu;
+   
+
+    public String getSenha() {
+        return senha;
     }
 
-    public void setNomeUsu(String nomeUsu) {
-        this.nomeUsu = nomeUsu;
-    }
-
-    public String getEmailUsu() {
-        return emailUsu;
-    }
-
-    public void setEmailUsu(String emailUsu) {
-        this.emailUsu = emailUsu;
-    }
-
-    public String getDataNascUsu() {
-        return dataNascUsu;
-    }
-
-    public void setDataNascUsu(String dataNascUsu) {
-        this.dataNascUsu = dataNascUsu;
-    }
-
-    public int getAtivoUsu() {
-        return ativoUsu;
-    }
-
-    public void setAtivoUsu(int ativoUsu) {
-        this.ativoUsu = ativoUsu;
-    }
-
-    public String getSenhaUsu() {
-        return senhaUsu;
-    }
-
-    public void setSenhaUsu(String senhaUsu) {
-        this.senhaUsu = senhaUsu;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
     
-    public Icon getImagemUsu(){
-        return this.imagenUsu;
-    }
-    
-    public void setImagemUsu(Icon imagem){
-        this.imagenUsu = imagem;
-    }
-    
-    public String ativoToString(){
-        if (this.ativoUsu == 1)
-            return "Ativo";
-        else
-            return "Inativo";
-    }
+   
 
     public String toString(){
-        return "Usuario{" + "pkUsuario" + pkUsuario + ", nomeUsu= " + nomeUsu
-                + ", emailUsu=" + emailUsu + ", dataNascUsu=" + dataNascUsu 
-                + ", ativoUsu=" + ativoUsu + ", senhaUsu=" + senhaUsu + '}';
+        return "Usuario{" + "pkUsuario" + getPk() + ", nomeUsu= " + getNome()
+                + ", emailUsu=" + getEmail() + ", dataNascUsu=" + getDataNasc() 
+                + ", ativoUsu=" + getAtivo() + ", senhaUsu=" + getSenha() + '}';
                 
                 }
     
