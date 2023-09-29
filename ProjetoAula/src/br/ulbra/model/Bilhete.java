@@ -11,9 +11,9 @@ package br.ulbra.model;
  */
 public class Bilhete {
     private String placa;
-    private int tipo;
+
     private int tarifa;
-    private int vaga;
+    private int numero;
 
     public String getPlaca() {
         return placa;
@@ -23,13 +23,7 @@ public class Bilhete {
         this.placa = placa;
     }
 
-    public int getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
+    
 
     public int getTarifa() {
         return tarifa;
@@ -39,13 +33,14 @@ public class Bilhete {
         this.tarifa = tarifa;
     }
 
-    public int getVaga() {
-        return vaga;
+    public int getNumero() {
+        return numero;
     }
 
-    public void setVaga(int vaga) {
-        this.vaga = vaga;
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
+
     
     
     

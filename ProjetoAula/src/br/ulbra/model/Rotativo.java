@@ -11,7 +11,7 @@ package br.ulbra.model;
  */
 public class Rotativo {
     private String Placa;
-    private String Numero;
+    private int Numero;
     private String Local;
     private int Pais;
     private int Vaga;
@@ -27,13 +27,15 @@ public class Rotativo {
         this.Placa = Placa;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return Numero;
     }
 
-    public void setNumero(String Numero) {
+    public void setNumero(int Numero) {
         this.Numero = Numero;
     }
+
+    
 
     public String getLocal() {
         return Local;

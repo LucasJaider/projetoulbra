@@ -176,10 +176,12 @@ public class FRSetor extends javax.swing.JFrame {
 
     private void FiscalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FiscalizarMouseClicked
        new FRFiscalizar().setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_FiscalizarMouseClicked
 
     private void VendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VendasMouseClicked
         new FRVenda().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_VendasMouseClicked
 
     private void SairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SairMouseClicked
